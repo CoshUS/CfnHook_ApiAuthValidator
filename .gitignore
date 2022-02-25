@@ -131,3 +131,4 @@ rpdk.log*
 .env
 .env-*/
 aws-sam-apiauthvalidator.zip
+.vscode/
