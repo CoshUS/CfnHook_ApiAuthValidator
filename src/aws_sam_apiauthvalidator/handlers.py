@@ -50,13 +50,14 @@ def pre_update_handler(
         callback_context: MutableMapping[str, Any],
         type_configuration: TypeConfigurationModel
 ) -> ProgressEvent:
-    target_model = request.hookContext.targetModel
     progress: ProgressEvent = ProgressEvent(
         status=OperationStatus.FAILED
     )
+    target_name = request.hookContext.targetName
+    target_model = request.hookContext.targetModel
     resource_properties = target_model.get("resourceProperties")
 
-    if validate_auth(resource_properties):
+    if validate_auth(target_name, resource_properties):
         progress.status = OperationStatus.SUCCESS
     else:
         progress.status = OperationStatus.FAILED
@@ -75,7 +76,14 @@ def pre_delete_handler(
     )
 
 
-def validate_auth(resource_properties):
+def validate_auth(target_name, resource_properties):
+    if target_name == "AWS::ApiGateway::RestApi" or target_name == "AWS::ApiGatewayV2::Api":
+        return validate_cfn_auth(resource_properties)
+    elif target_name == "AWS::ApiGateway::Method" or target_name == "AWS::ApiGatewayV2::Route":
+        return validate_open_api_auth(resource_properties)
+    else:
+        raise ValueError("Unknown target: " + target_name)
+def validate_open_api_auth(resource_properties):
     paths = resource_properties.get("Body", {}).get("paths")
     if not paths:
         return True
@@ -86,3 +94,6 @@ def validate_auth(resource_properties):
                 return False
 
     return True
+
+def validate_cfn_auth(resource_properties):
+    return bool(resource_properties.get("AuthorizerId", None))

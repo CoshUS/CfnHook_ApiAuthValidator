@@ -13,21 +13,27 @@
         "preCreate": {
             "targetNames": [
                 "AWS::ApiGatewayV2::Api",
-                "AWS::ApiGateway::RestApi"
+                "AWS::ApiGateway::RestApi",
+                "AWS::ApiGateway::Method",
+                "AWS::ApiGatewayV2::Route"
             ],
             "permissions": []
         },
         "preUpdate": {
             "targetNames": [
                 "AWS::ApiGatewayV2::Api",
-                "AWS::ApiGateway::RestApi"
+                "AWS::ApiGateway::RestApi",
+                "AWS::ApiGateway::Method",
+                "AWS::ApiGatewayV2::Route"
             ],
             "permissions": []
         },
         "preDelete": {
             "targetNames": [
                 "AWS::ApiGatewayV2::Api",
-                "AWS::ApiGateway::RestApi"
+                "AWS::ApiGateway::RestApi",
+                "AWS::ApiGateway::Method",
+                "AWS::ApiGatewayV2::Route"
             ],
             "permissions": []
         }
