@@ -29,13 +29,14 @@ def pre_create_handler(
         callback_context: MutableMapping[str, Any],
         type_configuration: TypeConfigurationModel
 ) -> ProgressEvent:
-    target_model = request.hookContext.targetModel
     progress: ProgressEvent = ProgressEvent(
         status=OperationStatus.FAILED
     )
+    target_name = request.hookContext.targetName
+    target_model = request.hookContext.targetModel
     resource_properties = target_model.get("resourceProperties")
 
-    if validate_auth(resource_properties):
+    if validate_auth(target_name, resource_properties):
         progress.status = OperationStatus.SUCCESS
     else:
         progress.status = OperationStatus.FAILED
