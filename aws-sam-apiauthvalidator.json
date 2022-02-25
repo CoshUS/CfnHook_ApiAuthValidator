@@ -1,0 +1,36 @@
+{
+    "typeName": "AWS::SAM::ApiAuthValidator",
+    "description": "Example hook for enforcing authorizers on all Api paths and methods",
+    "sourceUrl": "https://github.com/CoshUS/CfnHook_ApiAuthValidator",
+    "documentationUrl": "https://github.com/CoshUS/CfnHook_ApiAuthValidator",
+    "typeConfiguration": {
+        "properties": {
+        },
+        "additionalProperties": false
+    },
+    "required": [],
+    "handlers": {
+        "preCreate": {
+            "targetNames": [
+                "AWS::ApiGatewayV2::Api",
+                "AWS::ApiGateway::RestApi"
+            ],
+            "permissions": []
+        },
+        "preUpdate": {
+            "targetNames": [
+                "AWS::ApiGatewayV2::Api",
+                "AWS::ApiGateway::RestApi"
+            ],
+            "permissions": []
+        },
+        "preDelete": {
+            "targetNames": [
+                "AWS::ApiGatewayV2::Api",
+                "AWS::ApiGateway::RestApi"
+            ],
+            "permissions": []
+        }
+    },
+    "additionalProperties": false
+}
