@@ -4,6 +4,26 @@ CloudFormation hook for enforcing that all paths and methods in the OpenApi defi
 
 Intrinsic functions are resolved before the hook.
 
+# CFN
+## Valid:
+```yaml
+  MyApiRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref MyApi
+      RouteKey: 'POST /route-post'
+      AuthorizerId: MyLambdaAuthUpdated
+```
+## Invalid:
+```yaml
+  MyApiRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref MyApi
+      RouteKey: 'POST /route-post'
+```
+
+# OpenAPI
 ## Valid:
 ```json
 {

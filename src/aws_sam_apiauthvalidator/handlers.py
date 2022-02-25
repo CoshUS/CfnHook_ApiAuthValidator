@@ -78,9 +78,9 @@ def pre_delete_handler(
 
 def validate_auth(target_name, resource_properties):
     if target_name == "AWS::ApiGateway::RestApi" or target_name == "AWS::ApiGatewayV2::Api":
-        return validate_cfn_auth(resource_properties)
-    elif target_name == "AWS::ApiGateway::Method" or target_name == "AWS::ApiGatewayV2::Route":
         return validate_open_api_auth(resource_properties)
+    elif target_name == "AWS::ApiGateway::Method" or target_name == "AWS::ApiGatewayV2::Route":
+        return validate_cfn_auth(resource_properties)
     else:
         raise ValueError("Unknown target: " + target_name)
 def validate_open_api_auth(resource_properties):
